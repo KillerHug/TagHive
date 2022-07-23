@@ -21,8 +21,12 @@ class ShowItemViewModel(var apiService: ApiService) : ViewModel() {
     }
 
     fun getSymbolItem(symbol: String?) {
-        coroutineScope.launch {
-            getSymbols(symbol)
+        try {
+            coroutineScope.launch {
+                getSymbols(symbol)
+            }
+        } catch (ex: Exception) {
+
         }
     }
 }

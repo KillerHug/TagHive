@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bestone.taghive.databinding.ShowSymbolBottomSheetBinding
@@ -55,7 +56,15 @@ class ShowSymbolBottomSheet : BottomSheetDialogFragment() {
 
     private fun init() {
         if (arguments != null) {
-            viewModel.getSymbolItem(requireArguments().getString("symbol"))
+            if (Const.checkConnection(requireActivity())) {
+                viewModel.getSymbolItem(requireArguments().getString("symbol"))
+            } else {
+                Toast.makeText(
+                    requireActivity(),
+                    "Internet Connection not Found",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.bestone.taghive
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bestone.taghive.databinding.ActivityShowItemBinding
@@ -22,7 +23,11 @@ class ShowItemActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory)[ShowItemViewModel::class.java]
         binding.viewmodel = viewModel
         if (intent != null) {
-            viewModel.getSymbolItem(intent.getStringExtra("symbol"))
+            if (Const.checkConnection(this)) {
+                viewModel.getSymbolItem(intent.getStringExtra("symbol"))
+            } else {
+                Toast.makeText(this, "Internet Connection not Found", Toast.LENGTH_SHORT).show()
+            }
         }
         initObserver()
     }

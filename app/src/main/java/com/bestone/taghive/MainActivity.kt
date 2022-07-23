@@ -1,14 +1,17 @@
 package com.bestone.taghive
 
-import android.content.Intent
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bestone.taghive.databinding.ActivityMainBinding
 import com.bestone.taghive.retrofit.ApiService
 import com.bestone.taghive.retrofit.RetrofitBuilder
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainViewModel
@@ -21,14 +24,22 @@ class MainActivity : AppCompatActivity() {
         factory = MainViewModelFactory(apiService)
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         binding.viewmodel = viewModel
-        binding.animationView.visibility=View.VISIBLE
+        binding.animationView.visibility = View.VISIBLE
 //        call api for get all symbol
-        viewModel.getAllSymbols()
+        if (Const.checkConnection(this)) {
+            viewModel.getAllSymbols()
+        } else {
+            Toast.makeText(this, "Internet Connection not Found", Toast.LENGTH_SHORT).show()
+        }
         initClickListener()
         initObserver()
         binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.animationView.visibility=View.VISIBLE
-            viewModel.getAllSymbols()
+            binding.animationView.visibility = View.VISIBLE
+            if (Const.checkConnection(this)) {
+                viewModel.getAllSymbols()
+            } else {
+                Toast.makeText(this, "Internet Connection not Found", Toast.LENGTH_SHORT).show()
+            }
             if (binding.swipeRefreshLayout.isRefreshing) {
                 binding.swipeRefreshLayout.isRefreshing = false
             }
@@ -37,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initObserver() {
         viewModel.symbolsMutable.observe(this) {
-            binding.animationView.visibility=View.GONE
+            binding.animationView.visibility = View.GONE
 //            set data on adapter
             viewModel.adapter.setList(it)
         }

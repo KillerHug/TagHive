@@ -12,7 +12,7 @@ class MainViewModel(var apiService: ApiService) : ViewModel() {
     var isSuccess = MutableLiveData<Boolean>()
     val viewModelJob = Job()
     var adapter = SymbolsAdapter()
-    var symbolsMutable=MutableLiveData<SymbolsResponse>()
+    var symbolsMutable = MutableLiveData<SymbolsResponse>()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
     suspend fun getSymbols() {
@@ -26,8 +26,12 @@ class MainViewModel(var apiService: ApiService) : ViewModel() {
     }
 
     fun getAllSymbols() {
-        coroutineScope.launch {
-            getSymbols()
+        try {
+            coroutineScope.launch {
+                getSymbols()
+            }
+        }catch (ex:Exception){
+
         }
     }
 }
