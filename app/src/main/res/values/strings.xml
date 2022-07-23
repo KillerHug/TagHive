@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TagHive</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="volume">Volume</string>
+    <string name="bidPrice">Bid Price</string>
+    <string name="askPrice">Ask Price</string>
+</resources>
