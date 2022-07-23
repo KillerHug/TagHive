@@ -12,14 +12,14 @@ import kotlin.math.roundToInt
 
 class ShowItemActivity : AppCompatActivity() {
     lateinit var binding: ActivityShowItemBinding
-    lateinit var viewModel: ShowItmeViewModel
+    lateinit var viewModel: ShowItemViewModel
     lateinit var factory: MainViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_item)
         var apiService = RetrofitBuilder.getInstance().create(ApiService::class.java)
         factory = MainViewModelFactory(apiService)
-        viewModel = ViewModelProvider(this, factory)[ShowItmeViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[ShowItemViewModel::class.java]
         binding.viewmodel = viewModel
         if (intent != null) {
             viewModel.getSymbolItem(intent.getStringExtra("symbol"))

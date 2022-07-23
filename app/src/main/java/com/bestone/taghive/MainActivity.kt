@@ -40,13 +40,19 @@ class MainActivity : AppCompatActivity() {
     private fun initClickListener() {
         viewModel.adapter.setOnClickListener(object : SymbolsAdapter.OnItemClickListener {
             override fun onItemClick(symbol: String, color: Int) {
-                startActivity(
+                /*startActivity(
                     Intent(
                         this@MainActivity,
                         ShowItemActivity::class.java
                     ).putExtra("symbol", symbol)
                     .putExtra("color", color)
-                )
+                )*/
+                var bundle = Bundle()
+                bundle.putString("symbol", symbol)
+                bundle.putInt("color", color)
+                val fragment = ShowSymbolBottomSheet()
+                fragment.arguments = bundle
+                fragment.show(supportFragmentManager, fragment.tag)
             }
         })
     }

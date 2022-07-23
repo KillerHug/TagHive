@@ -6,7 +6,7 @@ import com.bestone.taghive.retrofit.ApiService
 import com.bestone.taghive.response.SymbolsResponseItem
 import kotlinx.coroutines.*
 
-class ShowItmeViewModel(var apiService: ApiService) : ViewModel() {
+class ShowItemViewModel(var apiService: ApiService) : ViewModel() {
     val viewModelJob = Job()
     var symbolsMutable = MutableLiveData<SymbolsResponseItem>()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + viewModelJob)
