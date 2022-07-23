@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         binding.viewmodel = viewModel
         binding.animationView.visibility=View.VISIBLE
+//        call api for get all symbol
         viewModel.getAllSymbols()
         initClickListener()
         initObserver()
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private fun initObserver() {
         viewModel.symbolsMutable.observe(this) {
             binding.animationView.visibility=View.GONE
+//            set data on adapter
             viewModel.adapter.setList(it)
         }
     }
@@ -44,6 +46,8 @@ class MainActivity : AppCompatActivity() {
     private fun initClickListener() {
         viewModel.adapter.setOnClickListener(object : SymbolsAdapter.OnItemClickListener {
             override fun onItemClick(symbol: String, color: Int) {
+//                item click listener
+
                 /*startActivity(
                     Intent(
                         this@MainActivity,

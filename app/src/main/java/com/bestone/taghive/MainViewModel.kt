@@ -19,6 +19,7 @@ class MainViewModel(var apiService: ApiService) : ViewModel() {
         var job = CoroutineScope(Dispatchers.Main).async {
             apiService.getSymbols()
         }
+//        wait for api response
         if (job.await().isSuccessful) {
             symbolsMutable.postValue(job.await().body()!!)
         }
