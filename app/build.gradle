@@ -59,6 +59,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3'
 
-
+//swipe refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //    lottie animation
+    implementation "com.airbnb.android:lottie:3.7.0"
 }

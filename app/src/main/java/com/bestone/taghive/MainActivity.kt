@@ -2,6 +2,7 @@ package com.bestone.taghive
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -20,10 +21,12 @@ class MainActivity : AppCompatActivity() {
         factory = MainViewModelFactory(apiService)
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         binding.viewmodel = viewModel
+        binding.animationView.visibility=View.VISIBLE
         viewModel.getAllSymbols()
         initClickListener()
         initObserver()
         binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.animationView.visibility=View.VISIBLE
             viewModel.getAllSymbols()
             if (binding.swipeRefreshLayout.isRefreshing) {
                 binding.swipeRefreshLayout.isRefreshing = false
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initObserver() {
         viewModel.symbolsMutable.observe(this) {
+            binding.animationView.visibility=View.GONE
             viewModel.adapter.setList(it)
         }
     }
